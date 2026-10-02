@@ -438,7 +438,20 @@ async function loadOrders(){
 
 }
 
+function filterOrders(status){
+  const orders = document.querySelectorAll(".order");
 
+  orders.forEach(order => {
+    const currentStatus =
+      order.querySelector(".status").textContent.trim();
+
+    if(status === "ทั้งหมด" || currentStatus === status){
+      order.style.display = "";
+    }else{
+      order.style.display = "none";
+    }
+  });
+}
 // UPDATE STATUS
 
 async function updateStatus(id,status){
