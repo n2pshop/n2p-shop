@@ -1,5 +1,5 @@
 const products = [
-  {id:1,name:"สินค้าใหม่ #01",price:590,icon:"✦"},
+  {id:1,name:"เสื้อกันหนาวคอกลม",price:590,image:"A2A233-น้ำเงิน-หน้า.jpg"},
   {id:2,name:"สินค้าใหม่ #02",price:790,icon:"◆"},
   {id:3,name:"สินค้าใหม่ #03",price:990,icon:"★"},
   {id:4,name:"สินค้าใหม่ #04",price:450,icon:"◈"},
@@ -14,7 +14,7 @@ const money = n => "฿" + n.toLocaleString("th-TH");
 function renderProducts(){
   productGrid.innerHTML = products.map(p => `
     <article class="card">
-      <div class="pic">${p.icon}</div>
+      <div class="pic"><img src="${p.image}" alt="${p.name}"></div>
       <div class="info">
         <h3>${p.name}</h3>
         <div class="price">${money(p.price)}</div>
