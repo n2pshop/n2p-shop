@@ -11,8 +11,10 @@ const products = [
     price: 399,
     image: "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-black.jpg",
     images: [
-      "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-black.jpg"
-    ],
+  "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-black.jpg",
+  "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-gray.jpg",
+  "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-white.jpg"
+],
     description: "เสื้อกันหนาวคอกลม เนื้อผ้านุ่ม ใส่สบาย",
     sizes: ["S", "M", "L", "XL"],
     colors: ["ดำ", "ขาว", "เทา"]
