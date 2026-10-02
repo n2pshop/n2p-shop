@@ -201,4 +201,3 @@ document.getElementById("confirmOrder").onclick = async function(){
   document.getElementById("customerAddress").value = "";
 };
 
-document.getElementById("checkout").onclick = openOrderForm;
