@@ -144,7 +144,7 @@ function closeOrderModal(){
   document.getElementById("orderModal").style.display = "none";
 }
 document.getElementById("closeOrderModal").onclick = closeOrderModal;
-
+document.getElementById("checkout").onclick = openOrderForm;
 document.getElementById("confirmOrder").onclick = async function(){
 
   const name = document.getElementById("customerName").value.trim();
