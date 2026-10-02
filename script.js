@@ -5,14 +5,74 @@ const supabaseClient = supabase.createClient(
   SUPABASE_KEY
 );
 const products = [
-{id:1,name:"เสื้อกันหนาวคอกลม",price:399,image:"https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-black.jpg"},
-  {id:2,name:"สินค้าใหม่ #02",price:790,icon:"◆"},
-  {id:3,name:"สินค้าใหม่ #03",price:990,icon:"★"},
-  {id:4,name:"สินค้าใหม่ #04",price:450,icon:"◈"},
-  {id:5,name:"สินค้าใหม่ #05",price:690,icon:"✧"},
-  {id:6,name:"สินค้าใหม่ #06",price:1290,icon:"⬢"}
-];
+  {
+    id: 1,
+    name: "เสื้อกันหนาวคอกลม",
+    price: 399,
+    image: "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-black.jpg",
+    images: [
+      "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-black.jpg"
+    ],
+    description: "เสื้อกันหนาวคอกลม เนื้อผ้านุ่ม ใส่สบาย",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["ดำ", "ขาว", "เทา"]
+  },
 
+  {
+    id: 2,
+    name: "สินค้าใหม่ #02",
+    price: 790,
+    icon: "◆",
+    images: [],
+    description: "รายละเอียดสินค้า",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["ดำ", "ขาว"]
+  },
+
+  {
+    id: 3,
+    name: "สินค้าใหม่ #03",
+    price: 990,
+    icon: "★",
+    images: [],
+    description: "รายละเอียดสินค้า",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["ดำ", "ขาว"]
+  },
+
+  {
+    id: 4,
+    name: "สินค้าใหม่ #04",
+    price: 450,
+    icon: "◈",
+    images: [],
+    description: "รายละเอียดสินค้า",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["ดำ", "ขาว"]
+  },
+
+  {
+    id: 5,
+    name: "สินค้าใหม่ #05",
+    price: 690,
+    icon: "✧",
+    images: [],
+    description: "รายละเอียดสินค้า",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["ดำ", "ขาว"]
+  },
+
+  {
+    id: 6,
+    name: "สินค้าใหม่ #06",
+    price: 1290,
+    icon: "⬢",
+    images: [],
+    description: "รายละเอียดสินค้า",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["ดำ", "ขาว"]
+  }
+];
 let cart = [];
 
 try {
