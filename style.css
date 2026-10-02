@@ -51,3 +51,48 @@
 .modal.hidden{
   display:none;
 }
+@media (max-width:600px){
+  .nav{
+    padding:10px 4%;
+  }
+
+  .nav nav{
+    gap:8px;
+  }
+
+  .hero{
+    padding:50px 5%;
+  }
+
+  h1{
+    font-size:52px;
+  }
+
+  .section{
+    padding:45px 5%;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .about{
+    margin-left:5%;
+    margin-right:5%;
+    padding:25px;
+  }
+
+  .cart{
+    width:100%;
+    padding:18px;
+  }
+
+  .modal{
+    padding:12px;
+  }
+
+  .modal-box{
+    max-height:95vh;
+    padding:20px;
+  }
+}
