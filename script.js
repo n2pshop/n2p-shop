@@ -136,7 +136,8 @@ function openOrderForm(){
   document.getElementById("modalItems").innerHTML = items;
   document.getElementById("modalTotal").textContent = money(total);
 
-  document.getElementById("orderModal").style.display = "flex";
+document.getElementById("orderModal").classList.remove("hidden");
+document.getElementById("orderModal").style.display = "flex";
 }
 
 function closeOrderModal(){
