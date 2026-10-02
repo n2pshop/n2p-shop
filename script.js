@@ -61,12 +61,19 @@ function renderCart(){
   cartTotal.textContent=money(total);
 }
 
-function openCart(){document.getElementById("cart").classList.add("open");overlay.classList.remove("hidden")}
-function closeCart(){document.getElementById("cart").classList.remove("open");overlay.classList.add("hidden")}
+function openCart(){
+  document.getElementById("cart").classList.add("open");
+  document.getElementById("overlay").classList.remove("hidden");
+}
 
-cartBtn.onclick=openCart;
+function closeCart(){
+  document.getElementById("cart").classList.remove("open");
+  document.getElementById("overlay").classList.add("hidden");
+}
 
-overlay.onclick=closeCart;
-checkout.onclick=()=>alert("ขั้นต่อไปสามารถเชื่อมปุ่มนี้กับ LINE, Google Form หรือระบบชำระเงินจริงได้");
+document.getElementById("cartBtn").onclick = openCart;
+document.getElementById("closeCart").onclick = closeCart;
+document.getElementById("overlay").onclick = closeCart;
+document.getElementById("checkout").onclick = () => alert("ขั้นต่อไปสามารถเชื่อมปุ่มนี้กับ LINE, Google Form หรือระบบชำระเงินจริงได้");
 
 renderProducts(); renderCart();
