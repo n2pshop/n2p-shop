@@ -113,9 +113,9 @@ function renderProducts(){
 
   if(!p) return;
 
-  const image = p.images && p.images.length
-    ? p.images[0]
-    : p.image;
+ const images = p.images && p.images.length
+  ? p.images
+  : (p.image ? [p.image] : []);
 
   const sizeOptions = (p.sizes || []).map(size =>
   `<button class="size-option" onclick="selectSize('${size}', this)"
