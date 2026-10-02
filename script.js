@@ -116,14 +116,14 @@ function renderProducts(){
     : p.image;
 
   const sizeOptions = (p.sizes || []).map(size =>
-    `<button onclick="selectSize('${size}')"
-      style="padding:8px 14px;margin:5px;border:1px solid #6d3ca5;background:#17121e;color:white;border-radius:8px;cursor:pointer;">
+<button class="size-option" onclick="selectSize('${size}', this)"
+    style="padding:8px 14px;margin:5px;border:1px solid #6d3ca5;background:#17121e;color:white;border-radius:8px;cursor:pointer;">
       ${size}
     </button>`
   ).join("");
 
-  const colorOptions = (p.colors || []).map(color =>
-    `<button onclick="selectColor('${color}')"
+<button class="color-option" onclick="selectColor('${color}', this)">
+  `<button onclick="selectColor('${color}')"
       style="padding:8px 14px;margin:5px;border:1px solid #6d3ca5;background:#17121e;color:white;border-radius:8px;cursor:pointer;">
       ${color}
     </button>`
@@ -180,19 +180,25 @@ function renderProducts(){
 } let selectedSize = "";
 let selectedColor = "";
 
-function selectSize(size){
+function selectSize(size, button){
   selectedSize = size;
 
   document.querySelectorAll(".size-option").forEach(btn => {
     btn.classList.remove("selected");
   });
 
-  event.target.classList.add("selected");
+button.classList.add("selected");
 }
 
-function selectColor(color){
+function selectColor(color, button){
   selectedColor = color;
- } 
+
+  document.querySelectorAll(".color-option").forEach(btn => {
+    btn.classList.remove("selected");
+  });
+
+  button.classList.add("selected");
+}
 function addProductToCart(id){
   const item = cart.find(x =>
     x.id === id &&
