@@ -62,7 +62,50 @@
       <small>ปุ่มสั่งซื้อสามารถเปลี่ยนเป็น LINE, ฟอร์มออเดอร์ หรือระบบชำระเงินจริงได้</small>
     </div>
   </aside>
+<!-- ORDER MODAL -->
+<div id="orderModal" class="modal hidden">
 
+  <div class="modal-box">
+
+    <button id="closeOrderModal" class="modal-close">×</button>
+
+    <h2>ยืนยันคำสั่งซื้อ</h2>
+    <p class="modal-subtitle">กรุณากรอกข้อมูลสำหรับจัดส่ง</p>
+
+    <div class="order-summary">
+      <div id="modalItems"></div>
+
+      <div class="modal-total">
+        <span>ยอดรวม</span>
+        <strong id="modalTotal">฿0</strong>
+      </div>
+    </div>
+
+    <input
+      id="customerName"
+      type="text"
+      placeholder="ชื่อลูกค้า"
+    >
+
+    <input
+      id="customerPhone"
+      type="tel"
+      placeholder="เบอร์โทร"
+    >
+
+    <textarea
+      id="customerAddress"
+      placeholder="ที่อยู่จัดส่ง"
+      rows="4"
+    ></textarea>
+
+    <button id="confirmOrder" class="primary full">
+      ยืนยันสั่งซื้อ
+    </button>
+
+  </div>
+
+</div>
   <footer>© 2026 MY STORE • All rights reserved.</footer>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
