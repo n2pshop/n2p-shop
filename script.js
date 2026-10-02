@@ -80,6 +80,6 @@ function closeCart(){
 document.getElementById("cartBtn").onclick = openCart;
 document.getElementById("closeCart").onclick = closeCart;
 document.getElementById("overlay").onclick = closeCart;
-document.getElementById("checkout").onclick = () => alert("ขั้นต่อไปสามารถเชื่อมปุ่มนี้กับ LINE, Google Form หรือระบบชำระเงินจริงได้");
+
 
 renderProducts(); renderCart();
