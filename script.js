@@ -139,9 +139,6 @@ function openOrderForm(){
   document.getElementById("orderModal").style.display = "flex";
 }
 
-  document.getElementById("orderModal").classList.remove("hidden");
-}
-
 function closeOrderModal(){
   document.getElementById("orderModal").style.display = "none";
 }
