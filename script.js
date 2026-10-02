@@ -13,7 +13,14 @@ const products = [
   {id:6,name:"สินค้าใหม่ #06",price:1290,icon:"⬢"}
 ];
 
-let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+let cart = [];
+
+try {
+  cart = JSON.parse(localStorage.getItem("cart") || "[]");
+} catch (e) {
+  cart = [];
+  localStorage.removeItem("cart");
+}
 
 const money = n => "฿" + n.toLocaleString("th-TH");
 
