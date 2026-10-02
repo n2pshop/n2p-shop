@@ -102,3 +102,34 @@
   border-color:#c14cff !important;
   color:white !important;
 }
+@media (max-width:600px){
+  #productDetailModal{
+    padding:10px !important;
+  }
+
+  #productDetailModal > div{
+    max-height:95vh !important;
+    padding:18px !important;
+    border-radius:16px !important;
+  }
+
+  #productDetailModal img{
+    max-height:45vh;
+    object-fit:contain;
+  }
+
+  #productDetailModal h2{
+    font-size:24px;
+  }
+
+  #productDetailModal h3{
+    font-size:18px;
+    margin-bottom:8px;
+  }
+
+  .size-option,
+  .color-option{
+    padding:9px 14px !important;
+    margin:4px !important;
+  }
+}
