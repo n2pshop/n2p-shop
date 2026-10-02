@@ -1,4 +1,4 @@
-onst products = [
+const products = [
   {id:1,name:"เสื้อกันหนาวคอกลม",price:590,image:"https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-black.jpg"},
   {id:2,name:"สินค้าใหม่ #02",price:790,icon:"◆"},
   {id:3,name:"สินค้าใหม่ #03",price:990,icon:"★"},
