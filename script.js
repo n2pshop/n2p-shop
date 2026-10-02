@@ -107,13 +107,15 @@ function openOrderForm(){
   document.getElementById("modalItems").innerHTML = items;
   document.getElementById("modalTotal").textContent = money(total);
 
+  document.getElementById("orderModal").style.display = "flex";
+}
+
   document.getElementById("orderModal").classList.remove("hidden");
 }
 
 function closeOrderModal(){
-  document.getElementById("orderModal").classList.add("hidden");
+  document.getElementById("orderModal").style.display = "none";
 }
-
 document.getElementById("closeOrderModal").onclick = closeOrderModal;
 
 document.getElementById("confirmOrder").onclick = async function(){
