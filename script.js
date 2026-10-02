@@ -95,13 +95,88 @@ function renderProducts(){
           : `<div style="font-size:50px;text-align:center;padding:40px 0;">${p.icon || "✦"}</div>`
         }
       </div>
-      <div class="info">
-        <h3>${p.name}</h3>
-        <div class="price">${money(p.price)}</div>
-        <button class="add" onclick="addToCart(${p.id})">เพิ่มลงตะกร้า</button>
+     <div class="info">
+  <h3>${p.name}</h3>
+  <div class="price">${money(p.price)}</div>
+
+  <button class="add" onclick="openProduct(${p.id})">
+    ดูรายละเอียด
+  </button>
+</div>
       </div>
     </article>
   `).join("");
+}function openProduct(id){
+  const p = products.find(x => x.id === id);
+
+  if(!p) return;
+
+  const image = p.images && p.images.length
+    ? p.images[0]
+    : p.image;
+
+  const sizeOptions = (p.sizes || []).map(size =>
+    `<button onclick="selectSize('${size}')"
+      style="padding:8px 14px;margin:5px;border:1px solid #6d3ca5;background:#17121e;color:white;border-radius:8px;cursor:pointer;">
+      ${size}
+    </button>`
+  ).join("");
+
+  const colorOptions = (p.colors || []).map(color =>
+    `<button onclick="selectColor('${color}')"
+      style="padding:8px 14px;margin:5px;border:1px solid #6d3ca5;background:#17121e;color:white;border-radius:8px;cursor:pointer;">
+      ${color}
+    </button>`
+  ).join("");
+
+  const modal = document.createElement("div");
+
+  modal.id = "productDetailModal";
+  modal.style.cssText = `
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.8);
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  `;
+
+  modal.innerHTML = `
+    <div style="background:#120d19;border:1px solid #6d3ca5;border-radius:20px;padding:25px;width:100%;max-width:500px;max-height:90vh;overflow:auto;position:relative;">
+
+      <button onclick="document.getElementById('productDetailModal').remove()"
+        style="position:absolute;right:15px;top:10px;background:none;border:0;color:white;font-size:28px;cursor:pointer;">
+        ×
+      </button>
+
+      ${image ? `<img src="${image}" style="width:100%;border-radius:15px;margin-bottom:15px;">` : ""}
+
+      <h2>${p.name}</h2>
+
+      <div style="font-size:24px;color:#cf8aff;font-weight:bold;">
+        ${money(p.price)}
+      </div>
+
+      <p style="color:#aaa;">
+        ${p.description || "รายละเอียดสินค้า"}
+      </p>
+
+      <h3>เลือกไซส์</h3>
+      <div>${sizeOptions}</div>
+
+      <h3>เลือกสี</h3>
+      <div>${colorOptions}</div>
+
+      <button class="primary full" onclick="alert('เดี๋ยวเราจะเชื่อมปุ่มนี้กับตะกร้าในขั้นต่อไป')">
+        เพิ่มลงตะกร้า
+      </button>
+
+    </div>
+  `;
+
+  document.body.appendChild(modal);
 }
 function addToCart(id){
   const item = cart.find(x => x.id === id);
