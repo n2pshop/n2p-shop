@@ -230,7 +230,13 @@
   <div class="orders">
 
     <h2>ออเดอร์ล่าสุด</h2>
-
+<div id="statusFilters">
+  <button onclick="filterOrders('ทั้งหมด')">ทั้งหมด</button>
+  <button onclick="filterOrders('รอชำระเงิน')">รอชำระเงิน</button>
+  <button onclick="filterOrders('กำลังเตรียมสินค้า')">กำลังเตรียมสินค้า</button>
+  <button onclick="filterOrders('จัดส่งแล้ว')">จัดส่งแล้ว</button>
+  <button onclick="filterOrders('เสร็จสิ้น')">เสร็จสิ้น</button>
+</div>
     <div id="ordersList">
       กำลังโหลด...
     </div>
