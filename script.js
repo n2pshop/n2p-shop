@@ -182,7 +182,12 @@ let selectedColor = "";
 
 function selectSize(size){
   selectedSize = size;
-  
+
+  document.querySelectorAll(".size-option").forEach(btn => {
+    btn.classList.remove("selected");
+  });
+
+  event.target.classList.add("selected");
 }
 
 function selectColor(color){
