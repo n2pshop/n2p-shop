@@ -116,18 +116,18 @@ function renderProducts(){
     : p.image;
 
   const sizeOptions = (p.sizes || []).map(size =>
-<button class="size-option" onclick="selectSize('${size}', this)"
+  `<button class="size-option" onclick="selectSize('${size}', this)"
     style="padding:8px 14px;margin:5px;border:1px solid #6d3ca5;background:#17121e;color:white;border-radius:8px;cursor:pointer;">
-      ${size}
-    </button>`
-  ).join("");
+    ${size}
+  </button>`
+).join("");
 
-<button class="color-option" onclick="selectColor('${color}', this)">
-  `<button onclick="selectColor('${color}')"
-      style="padding:8px 14px;margin:5px;border:1px solid #6d3ca5;background:#17121e;color:white;border-radius:8px;cursor:pointer;">
-      ${color}
-    </button>`
-  ).join("");
+const colorOptions = (p.colors || []).map(color =>
+  `<button class="color-option" onclick="selectColor('${color}', this)"
+    style="padding:8px 14px;margin:5px;border:1px solid #6d3ca5;background:#17121e;color:white;border-radius:8px;cursor:pointer;">
+    ${color}
+  </button>`
+).join("");
 
   const modal = document.createElement("div");
 
