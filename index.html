@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MY STORE — ร้านค้า</title>
+  <meta name="description" content="ร้านค้าออนไลน์สไตล์ดำ-ม่วง">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#">
+      <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
+      <span>MY STORE</span>
+    </a>
+    <nav>
+      <a href="#products">สินค้า</a>
+      <a href="#about">เกี่ยวกับร้าน</a>
+      <button id="cartBtn" class="cart-btn">🛒 ตะกร้า <b id="cartCount">0</b></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">NEW DROP • 2026</p>
+        <h1>ของที่ใช่<br><span>สไตล์ที่เป็นคุณ</span></h1>
+        <p class="hero-copy">ร้านออนไลน์โทนดำ-ม่วงสำหรับสินค้าที่อยากให้โดดเด่น ตั้งแต่ชิ้นแรกที่เห็นจนถึงตอนสั่งซื้อ</p>
+        <a class="primary" href="#products">เลือกซื้อสินค้า</a>
+      </div>
+      <div class="hero-mark">✦</div>
+    </section>
+
+    <section id="products" class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">SHOP</p>
+          <h2>สินค้าของเรา</h2>
+        </div>
+        <p>เลือกสินค้าแล้วกดเพิ่มลงตะกร้าได้เลย</p>
+      </div>
+      <div id="productGrid" class="grid"></div>
+    </section>
+
+    <section id="about" class="about">
+      <p class="eyebrow">ABOUT</p>
+      <h2>ร้านเล็ก ๆ ที่ตั้งใจทำให้ทุกชิ้นมีสไตล์</h2>
+      <p>ส่วนนี้แก้เป็นเรื่องราวของร้าน ที่อยู่ ช่องทางติดต่อ หรือโปรโมชั่นได้</p>
+    </section>
+  </main>
+
+  <div id="overlay" class="overlay hidden"></div>
+  <aside id="cart" class="cart">
+    <div class="cart-head">
+      <h2>ตะกร้าสินค้า</h2>
+      <button id="closeCart" aria-label="ปิด">×</button>
+    </div>
+    <div id="cartItems"></div>
+    <div class="cart-foot">
+      <div class="total"><span>รวม</span><strong id="cartTotal">฿0</strong></div>
+      <button id="checkout" class="primary full">สั่งซื้อ</button>
+      <small>ปุ่มสั่งซื้อสามารถเปลี่ยนเป็น LINE, ฟอร์มออเดอร์ หรือระบบชำระเงินจริงได้</small>
+    </div>
+  </aside>
+
+  <footer>© 2026 MY STORE • All rights reserved.</footer>
+  <script src="script.js"></script>
+</body>
+</html>
