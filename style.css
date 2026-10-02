@@ -96,3 +96,9 @@
     padding:20px;
   }
 }
+.size-option.selected,
+.color-option.selected{
+  background:#8b2cff !important;
+  border-color:#c14cff !important;
+  color:white !important;
+}
