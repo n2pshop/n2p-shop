@@ -169,14 +169,58 @@ function renderProducts(){
       <h3>เลือกสี</h3>
       <div>${colorOptions}</div>
 
-      <button class="primary full" onclick="alert('เดี๋ยวเราจะเชื่อมปุ่มนี้กับตะกร้าในขั้นต่อไป')">
-        เพิ่มลงตะกร้า
-      </button>
+<button class="primary full" onclick="addProductToCart(${p.id})">
+  เพิ่มลงตะกร้า
+</button>
 
     </div>
   `;
 
   document.body.appendChild(modal);
+} let selectedSize = "";
+let selectedColor = "";
+
+function selectSize(size){
+  selectedSize = size;
+  alert("เลือกไซส์ " + size);
+}
+
+function selectColor(color){
+  selectedColor = color;
+  alert("เลือกสี " + color);
+} function addProductToCart(id){
+  if(!selectedSize){
+    alert("กรุณาเลือกไซส์");
+    return;
+  }
+
+  if(!selectedColor){
+    alert("กรุณาเลือกสี");
+    return;
+  }
+
+  const item = cart.find(x =>
+    x.id === id &&
+    x.size === selectedSize &&
+    x.color === selectedColor
+  );
+
+  if(item){
+    item.qty++;
+  }else{
+    cart.push({
+      id: id,
+      qty: 1,
+      size: selectedSize,
+      color: selectedColor
+    });
+  }
+
+  save();
+
+  document.getElementById("productDetailModal")?.remove();
+
+  openCart();
 }
 function addToCart(id){
   const item = cart.find(x => x.id === id);
@@ -222,7 +266,11 @@ function renderCart(){
       <div class="thumb">${p.icon || "✦"}</div>
       <div class="grow">
         <strong>${p.name}</strong>
-        <div class="qty">${x.qty} × ${money(p.price)}</div>
+       <div class="qty">
+  ${x.qty} x ${money(p.price)}
+  ${x.size ? `<br>ไซส์: ${x.size}` : ""}
+  ${x.color ? `<br>สี: ${x.color}` : ""}
+</div>
       </div>
       <button class="remove" onclick="removeFromCart(${p.id})">ลบ</button>
     </div>`;
