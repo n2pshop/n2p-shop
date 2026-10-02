@@ -90,14 +90,42 @@ function openOrderForm(){
     return;
   }
 
-  const name = prompt("ชื่อลูกค้า");
-  if(!name) return;
+  let total = 0;
 
-  const phone = prompt("เบอร์โทร");
-  if(!phone) return;
+  const items = cart.map(x => {
+    const p = products.find(p => p.id === x.id);
+    total += p.price * x.qty;
 
-  const address = prompt("ที่อยู่จัดส่ง");
-  if(!address) return;
+    return `
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+        <span>${p.name} × ${x.qty}</span>
+        <strong>${money(p.price * x.qty)}</strong>
+      </div>
+    `;
+  }).join("");
+
+  document.getElementById("modalItems").innerHTML = items;
+  document.getElementById("modalTotal").textContent = money(total);
+
+  document.getElementById("orderModal").classList.remove("hidden");
+}
+
+function closeOrderModal(){
+  document.getElementById("orderModal").classList.add("hidden");
+}
+
+document.getElementById("closeOrderModal").onclick = closeOrderModal;
+
+document.getElementById("confirmOrder").onclick = async function(){
+
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
+
+  if(!name || !phone || !address){
+    alert("กรุณากรอกข้อมูลให้ครบ");
+    return;
+  }
 
   let total = 0;
 
@@ -113,27 +141,35 @@ function openOrderForm(){
     "-" +
     Math.floor(1000 + Math.random() * 9000);
 
-  supabaseClient.from("orders").insert([{
-    order_number: orderNumber,
-    customer_name: name,
-    customer_phone: phone,
-    address: address,
-    items: items,
-    total: total,
-    status: "รอชำระเงิน"
-  }]).then(({error}) => {
+  const { error } = await supabaseClient
+    .from("orders")
+    .insert([{
+      order_number: orderNumber,
+      customer_name: name,
+      customer_phone: phone,
+      address: address,
+      items: items,
+      total: total,
+      status: "รอชำระเงิน"
+    }]);
 
-    if(error){
-      console.error(error);
-      alert("บันทึกออเดอร์ไม่สำเร็จ");
-      return;
-    }
+  if(error){
+    console.error(error);
+    alert("บันทึกออเดอร์ไม่สำเร็จ");
+    return;
+  }
 
-    alert("สั่งซื้อสำเร็จ! เลขออเดอร์ " + orderNumber);
+  alert("สั่งซื้อสำเร็จ! เลขออเดอร์ " + orderNumber);
 
-    cart = [];
-    save();
-    closeCart();
-  });
-}
+  cart = [];
+  save();
+
+  closeOrderModal();
+  closeCart();
+
+  document.getElementById("customerName").value = "";
+  document.getElementById("customerPhone").value = "";
+  document.getElementById("customerAddress").value = "";
+};
+
 document.getElementById("checkout").onclick = openOrderForm;
