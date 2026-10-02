@@ -182,20 +182,13 @@ let selectedColor = "";
 
 function selectSize(size){
   selectedSize = size;
-  alert("เลือกไซส์ " + size);
+  
 }
 
 function selectColor(color){
   selectedColor = color;
-  alert("เลือกสี " + color);
-function selectSize(size){
-  selectedSize = size;
-}
-
-function selectColor(color){
-  selectedColor = color;
-}
-
+ } 
+function addProductToCart(id){
   const item = cart.find(x =>
     x.id === id &&
     x.size === selectedSize &&
