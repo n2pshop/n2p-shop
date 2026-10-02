@@ -82,4 +82,58 @@ document.getElementById("closeCart").onclick = closeCart;
 document.getElementById("overlay").onclick = closeCart;
 
 
-renderProducts(); renderCart();
+renderProducts(); 
+renderCart();
+function openOrderForm(){
+  if(!cart.length){
+    alert("กรุณาเลือกสินค้าก่อนสั่งซื้อ");
+    return;
+  }
+
+  const name = prompt("ชื่อลูกค้า");
+  if(!name) return;
+
+  const phone = prompt("เบอร์โทร");
+  if(!phone) return;
+
+  const address = prompt("ที่อยู่จัดส่ง");
+  if(!address) return;
+
+  let total = 0;
+
+  const items = cart.map(x => {
+    const p = products.find(p => p.id === x.id);
+    total += p.price * x.qty;
+    return `${p.name} x${x.qty}`;
+  }).join(", ");
+
+  const orderNumber =
+    "N2P-" +
+    new Date().toISOString().slice(0,10).replaceAll("-","") +
+    "-" +
+    Math.floor(1000 + Math.random() * 9000);
+
+  supabaseClient.from("orders").insert([{
+    order_number: orderNumber,
+    customer_name: name,
+    customer_phone: phone,
+    address: address,
+    items: items,
+    total: total,
+    status: "รอชำระเงิน"
+  }]).then(({error}) => {
+
+    if(error){
+      console.error(error);
+      alert("บันทึกออเดอร์ไม่สำเร็จ");
+      return;
+    }
+
+    alert("สั่งซื้อสำเร็จ! เลขออเดอร์ " + orderNumber);
+
+    cart = [];
+    save();
+    closeCart();
+  });
+}
+document.getElementById("checkout").onclick = openOrderForm;
