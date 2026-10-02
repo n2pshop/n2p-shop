@@ -48,3 +48,6 @@
   font-size:30px;
   cursor:pointer;
 }
+.modal.hidden{
+  display:none;
+}
