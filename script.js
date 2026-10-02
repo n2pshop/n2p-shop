@@ -153,8 +153,14 @@ const colorOptions = (p.colors || []).map(color =>
         ×
       </button>
 
-      ${image ? `<img src="${image}" style="width:100%;border-radius:15px;margin-bottom:15px;">` : ""}
-
+${images.length ? `
+  <div style="display:flex;gap:10px;overflow-x:auto;margin-bottom:15px;">
+    ${images.map(src => `
+      <img src="${src}"
+        style="width:100%;max-width:300px;height:300px;object-fit:contain;border-radius:15px;flex-shrink:0;">
+    `).join("")}
+  </div>
+` : ""}
       <h2>${p.name}</h2>
 
       <div style="font-size:24px;color:#cf8aff;font-weight:bold;">
