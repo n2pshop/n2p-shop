@@ -238,8 +238,10 @@ function addToCart(id){
   save(); openCart();
 }
 
-function removeFromCart(id){
-  cart = cart.filter(x => x.id !== id);
+function removeFromCart(id, size, color){
+  cart = cart.filter(x =>
+    !(x.id === id && x.size === size && x.color === color)
+  );
   save();
 }
 
@@ -281,7 +283,7 @@ function renderCart(){
   ${x.color ? `<br>สี: ${x.color}` : ""}
 </div>
       </div>
-      <button class="remove" onclick="removeFromCart(${p.id})">ลบ</button>
+<button class="remove" onclick="removeFromCart(${p.id}, '${x.size || ""}', '${x.color || ""}')">ลบ</button>
     </div>`;
   }).join("");
 
