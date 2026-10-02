@@ -18,17 +18,24 @@ let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 const money = n => "฿" + n.toLocaleString("th-TH");
 
 function renderProducts(){
-  productGrid.innerHTML = products.map(p => `
+  const grid = document.getElementById("productGrid");
+
+  grid.innerHTML = products.map(p => `
     <article class="card">
-      <div class="pic"><img src="${p.image}" alt="${p.name}"></div>
+      <div class="pic">
+        ${p.image
+          ? `<img src="${p.image}" alt="${p.name}">`
+          : `<div style="font-size:50px;text-align:center;padding:40px 0;">${p.icon || "✦"}</div>`
+        }
+      </div>
       <div class="info">
         <h3>${p.name}</h3>
         <div class="price">${money(p.price)}</div>
         <button class="add" onclick="addToCart(${p.id})">เพิ่มลงตะกร้า</button>
       </div>
-    </article>`).join("");
+    </article>
+  `).join("");
 }
-
 function addToCart(id){
   const item = cart.find(x => x.id === id);
   if(item) item.qty++;
@@ -47,24 +54,39 @@ function save(){
 }
 
 function renderCart(){
-  const count = cart.reduce((s,x)=>s+x.qty,0);
+  const cartCount = document.getElementById("cartCount");
+  const cartItems = document.getElementById("cartItems");
+  const cartTotal = document.getElementById("cartTotal");
+
+  const count = cart.reduce((s,x) => s + x.qty, 0);
   cartCount.textContent = count;
+
   if(!cart.length){
     cartItems.innerHTML = '<p style="color:#888">ยังไม่มีสินค้าในตะกร้า</p>';
     cartTotal.textContent = "฿0";
     return;
   }
-  let total=0;
-  cartItems.innerHTML = cart.map(x=>{
-    const p=products.find(p=>p.id===x.id);
-    total += p.price*x.qty;
+
+  let total = 0;
+
+  cartItems.innerHTML = cart.map(x => {
+    const p = products.find(p => p.id === x.id);
+
+    if(!p) return "";
+
+    total += p.price * x.qty;
+
     return `<div class="cart-item">
-      <div class="thumb">${p.icon}</div>
-      <div class="grow"><strong>${p.name}</strong><div class="qty">${x.qty} × ${money(p.price)}</div></div>
+      <div class="thumb">${p.icon || "✦"}</div>
+      <div class="grow">
+        <strong>${p.name}</strong>
+        <div class="qty">${x.qty} × ${money(p.price)}</div>
+      </div>
       <button class="remove" onclick="removeFromCart(${p.id})">ลบ</button>
     </div>`;
   }).join("");
-  cartTotal.textContent=money(total);
+
+  cartTotal.textContent = money(total);
 }
 
 function openCart(){
