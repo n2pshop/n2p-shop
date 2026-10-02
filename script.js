@@ -61,8 +61,8 @@ function renderCart(){
   cartTotal.textContent=money(total);
 }
 
-function openCart(){cart.classList.add("open");overlay.classList.remove("hidden")}
-function closeCart(){cart.classList.remove("open");overlay.classList.add("hidden")}
+function openCart(){document.getElementById("cart").classList.add("open");overlay.classList.remove("hidden")}
+function closeCart(){document.getElementById("cart").classList.remove("open");overlay.classList.add("hidden")}
 
 cartBtn.onclick=openCart;
 
