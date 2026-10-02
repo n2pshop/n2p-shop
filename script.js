@@ -1,12 +1,11 @@
-const products = [
-  const SUPABASE_URL = "https://sdcuzllpkjwoyklylhuo.supabase.co/rest/v1/";
+const SUPABASE_URL = "https://sdcuzllpkjwoyklylhuo.supabase.co";
 const SUPABASE_KEY = "sb_publishable_9MKq7DSsnKbtUDy6VDZ1Vw_WiC-DCkQ";
-
 const supabaseClient = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
-  {id:1,name:"เสื้อกันหนาวคอกลม",price:399,image:"https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-black.jpg"},
+const products = [
+{id:1,name:"เสื้อกันหนาวคอกลม",price:399,image:"https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-black.jpg"},
   {id:2,name:"สินค้าใหม่ #02",price:790,icon:"◆"},
   {id:3,name:"สินค้าใหม่ #03",price:990,icon:"★"},
   {id:4,name:"สินค้าใหม่ #04",price:450,icon:"◈"},
