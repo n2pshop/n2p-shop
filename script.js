@@ -1,4 +1,4 @@
-const products = [
+onst products = [
   {id:1,name:"เสื้อกันหนาวคอกลม",price:590,image:"https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-black.jpg"},
   {id:2,name:"สินค้าใหม่ #02",price:790,icon:"◆"},
   {id:3,name:"สินค้าใหม่ #03",price:990,icon:"★"},
@@ -65,7 +65,7 @@ function openCart(){cart.classList.add("open");overlay.classList.remove("hidden"
 function closeCart(){cart.classList.remove("open");overlay.classList.add("hidden")}
 
 cartBtn.onclick=openCart;
-closeCartBtn.onclick=closeCart;
+
 overlay.onclick=closeCart;
 checkout.onclick=()=>alert("ขั้นต่อไปสามารถเชื่อมปุ่มนี้กับ LINE, Google Form หรือระบบชำระเงินจริงได้");
 
