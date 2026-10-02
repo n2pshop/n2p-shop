@@ -441,8 +441,15 @@ async function loadOrders(){
           >
             เสร็จสิ้น
           </option>
+</select>
 
-        </select>
+<button
+  onclick="deleteOrder('${order.id}')"
+  style="margin-top:10px;background:#8b1e1e;color:white;border:0;padding:8px 14px;border-radius:8px;cursor:pointer;"
+>
+  🗑 ลบออเดอร์
+</button>
+
 
       </div>
 
@@ -467,7 +474,6 @@ function filterOrders(status){
 // UPDATE STATUS
 
 async function updateStatus(id,status){
-
   const { error } =
     await supabaseClient
       .from("orders")
@@ -490,7 +496,23 @@ async function updateStatus(id,status){
   loadOrders();
 
 }
+async function deleteOrder(id){
+  if(!confirm("ยืนยันลบออเดอร์นี้?")) return;
 
+  const { error } = await supabaseClient
+    .from("orders")
+    .delete()
+    .eq("id", id);
+
+  if(error){
+    console.error(error);
+    alert("ลบออเดอร์ไม่สำเร็จ");
+    return;
+  }
+
+  alert("ลบออเดอร์แล้ว");
+  loadOrders();
+}
 </script>
 
 </body>
