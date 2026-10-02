@@ -188,16 +188,13 @@ function selectSize(size){
 function selectColor(color){
   selectedColor = color;
   alert("เลือกสี " + color);
-} function addProductToCart(id){
-  if(!selectedSize){
-    alert("กรุณาเลือกไซส์");
-    return;
-  }
+function selectSize(size){
+  selectedSize = size;
+}
 
-  if(!selectedColor){
-    alert("กรุณาเลือกสี");
-    return;
-  }
+function selectColor(color){
+  selectedColor = color;
+}
 
   const item = cart.find(x =>
     x.id === id &&
