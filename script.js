@@ -577,12 +577,7 @@ document.getElementById("paymentDone").onclick = async function(){
 
   const slipUrl = fileData.publicUrl;
 
-  const { error: updateError } = await supabaseClient
-    .from("orders")
-    .update({
-      status: "รอตรวจสอบการชำระเงิน",
-      slip_url: slipUrl
-    })
+
     .eq("order_number", window.lastOrderNumber);
 
   if(updateError){
