@@ -252,13 +252,37 @@ function renderProducts(){
 }
 
 async function addProduct(){
+const imageFile = document.getElementById("productImageFile").files[0];
 
+if(!imageFile){
+  alert("กรุณาเลือกรูปสินค้า");
+  return;
+}
   const name = document.getElementById("productName").value.trim();
   const price = Number(document.getElementById("productPrice").value || 0);
   const cost = Number(document.getElementById("productCost").value || 0);
-  const image_url = document.getElementById("productImage").value.trim();
+  
   const description =
     document.getElementById("productDescription").value.trim();
+  const fileName = Date.now() + "-" + imageFile.name;
+
+const { error: uploadError } = await supabaseClient
+  .storage
+  .from("product-images")
+  .upload(fileName, imageFile);
+
+if(uploadError){
+  console.error(uploadError);
+  alert("อัปโหลดรูปสินค้าไม่สำเร็จ");
+  return;
+}
+
+const { data: imageData } = supabaseClient
+  .storage
+  .from("product-images")
+  .getPublicUrl(fileName);
+
+const image_url = imageData.publicUrl;
   const sizes =
   document.getElementById("productSizes").value
     .split(",")
@@ -298,7 +322,7 @@ const colors =
   document.getElementById("productName").value = "";
   document.getElementById("productPrice").value = "";
   document.getElementById("productCost").value = "";
-  document.getElementById("productImage").value = "";
+  document.getElementById("productImageFile").value = "";
   document.getElementById("productDescription").value = "";
 
   loadProducts();
