@@ -81,7 +81,38 @@ const products = [
     colors: ["ดำ", "ขาว"]
   }
 ];
-let cart = [];
+let cart = [];async function loadProductsFromSupabase(){
+  const { data, error } = await supabaseClient
+    .from("products")
+    .select("*")
+    .eq("active", true)
+    .order("created_at", { ascending: false });
+
+  if(error){
+    console.error("โหลดสินค้าไม่สำเร็จ:", error);
+    return;
+  }
+
+  if(data && data.length){
+    products.length = 0;
+
+    data.forEach(p => {
+      products.push({
+        id: p.id,
+        name: p.name,
+        price: Number(p.price || 0),
+        cost: Number(p.cost || 0),
+        image: p.image_url || "",
+        images: p.image_url ? [p.image_url] : [],
+        description: p.description || "รายละเอียดสินค้า",
+        sizes: p.sizes || [],
+        colors: p.colors || []
+      });
+    });
+  }
+
+  renderProducts();
+}
 
 try {
   cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -311,8 +342,9 @@ document.getElementById("closeCart").onclick = closeCart;
 document.getElementById("overlay").onclick = closeCart;
 
 
-renderProducts(); 
+loadProductsFromSupabase();
 renderCart();
+
 function openOrderForm(){
   if(!cart.length){
     alert("กรุณาเลือกสินค้าก่อนสั่งซื้อ");
