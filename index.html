@@ -16,6 +16,7 @@
     <nav>
       <a href="#products">สินค้า</a>
       <a href="#about">เกี่ยวกับร้าน</a>
+      <a href="#trackOrder">📦 ติดตามคำสั่งซื้อ</a>
       <button id="cartBtn" class="cart-btn">🛒 ตะกร้า <b id="cartCount">0</b></button>
     </nav>
   </header>
@@ -42,11 +43,26 @@
       <div id="productGrid" class="grid"></div>
     </section>
 
-    <section id="about" class="about">
-      <p class="eyebrow">ABOUT</p>
-      <h2>ร้านเล็ก ๆ ที่ตั้งใจทำให้ทุกชิ้นมีสไตล์</h2>
-      <p>สวยหล่อได้ทุกสไตล์ที่N2P SHOP</p>
-    </section>
+   <section id="about" class="about">
+  <p class="eyebrow">ABOUT</p>
+  <h2>ร้านเล็ก ๆ ที่ตั้งใจทำให้ทุกชิ้นมีสไตล์</h2>
+  <p>สวยหล่อได้ทุกสไตล์ที่N2P SHOP</p>
+</section>
+
+<section id="trackOrder" class="about">
+  <p class="eyebrow">ORDER TRACKING</p>
+  <h2>📦 ติดตามคำสั่งซื้อ</h2>
+  <p>กรอกเลขออเดอร์และเบอร์โทร เพื่อดูสถานะคำสั่งซื้อ</p>
+
+  <input id="trackOrderNumber" type="text" placeholder="เลขออเดอร์ เช่น N2P-00125">
+  <input id="trackPhone" type="tel" placeholder="เบอร์โทร">
+
+  <button id="trackOrderBtn" class="primary">
+    🔎 ตรวจสอบคำสั่งซื้อ
+  </button>
+
+  <div id="trackResult"></div>
+</section>
   </main>
 
   <div id="overlay" class="overlay hidden"></div>
