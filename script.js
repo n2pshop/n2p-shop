@@ -577,7 +577,12 @@ document.getElementById("paymentDone").onclick = async function(){
 
   const slipUrl = fileData.publicUrl;
 
-
+  const { error: updateError } = await supabaseClient
+    .from("orders")
+    .update({
+      status: "รอตรวจสอบการชำระเงิน",
+      slip_url: slipUrl
+    })
     .eq("order_number", window.lastOrderNumber);
 
   if(updateError){
@@ -604,35 +609,5 @@ document.getElementById("paymentDone").onclick = async function(){
     </div>
   `;
 };
-
-  const { error } = await supabaseClient
-    .from("orders")
-    .update({
-      status: "รอตรวจสอบการชำระเงิน"
-    })
-    .eq("order_number", window.lastOrderNumber);
-
-  if(error){
-    console.error(error);
-    alert("แจ้งชำระเงินไม่สำเร็จ");
-    return;
-  }
-
-  document.getElementById("paymentModal").style.display = "none";
-
-  document.getElementById("trackResult").innerHTML = `
-    <div style="
-      margin-top:20px;
-      padding:20px;
-      border:1px solid #6d3ca5;
-      border-radius:15px;
-      background:#120d19;
-      text-align:center;
-    ">
-      <h3>✅ แจ้งชำระเงินแล้ว</h3>
-      <p style="color:#aaa;">
-        ร้านได้รับแจ้งการชำระเงินแล้ว
-      </p>
-    </div>
   `;
 };
