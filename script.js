@@ -62,7 +62,7 @@ function renderProducts(){
   <h3>${p.name}</h3>
   <div class="price">${money(p.price)}</div>
 
-<button class="add" type="button" onclick="window.openProduct('${p.id}')">
+<button class="add" type="button" onclick='openProduct(${JSON.stringify(p.id)})'>
 ดูรายละเอียด
   </button>
 </div>
