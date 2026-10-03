@@ -252,9 +252,99 @@ function renderProducts(){
 }
 
 async function addProduct(){
-const imageFile = document.getElementById("productImageFile").files[0];
 
-if(!imageFile){
+  const imageFiles = document.getElementById("productImageFile").files;
+
+  if(!imageFiles.length){
+    alert("กรุณาเลือกรูปสินค้า");
+    return;
+  }
+
+  const name = document.getElementById("productName").value.trim();
+  const price = Number(document.getElementById("productPrice").value || 0);
+  const cost = Number(document.getElementById("productCost").value || 0);
+
+  const description =
+    document.getElementById("productDescription").value.trim();
+
+  const sizes =
+    document.getElementById("productSizes").value
+      .split(",")
+      .map(x => x.trim())
+      .filter(Boolean);
+
+  const colors =
+    document.getElementById("productColors").value
+      .split(",")
+      .map(x => x.trim())
+      .filter(Boolean);
+
+  if(!name){
+    alert("กรุณาใส่ชื่อสินค้า");
+    return;
+  }
+
+  const imageUrls = [];
+
+  for(const file of imageFiles){
+
+    const fileName =
+      Date.now() + "-" + Math.random().toString(36).slice(2) + "-" + file.name;
+
+    const { error: uploadError } = await supabaseClient
+      .storage
+      .from("product-images")
+      .upload(fileName, file);
+
+    if(uploadError){
+      console.error(uploadError);
+      alert("อัปโหลดรูปสินค้าไม่สำเร็จ");
+      return;
+    }
+
+    const { data: imageData } = supabaseClient
+      .storage
+      .from("product-images")
+      .getPublicUrl(fileName);
+
+    imageUrls.push(imageData.publicUrl);
+  }
+
+  const { error } = await supabaseClient
+    .from("products")
+    .insert({
+      name,
+      price,
+      cost,
+      image_url: imageUrls[0],
+      image_urls: imageUrls,
+      description,
+      sizes,
+      colors,
+      active:true
+    });
+
+  if(error){
+    console.error(error);
+    alert("เพิ่มสินค้าไม่สำเร็จ");
+    return;
+  }
+
+  alert("เพิ่มสินค้าเรียบร้อยแล้ว " + imageUrls.length + " รูป");
+
+  document.getElementById("productName").value = "";
+  document.getElementById("productPrice").value = "";
+  document.getElementById("productCost").value = "";
+  document.getElementById("productImageFile").value = "";
+  document.getElementById("productSizes").value = "";
+  document.getElementById("productColors").value = "";
+  document.getElementById("productDescription").value = "";
+
+  loadProducts();
+}
+const imageFiles = document.getElementById("productImageFile").files;
+
+if(!imageFiles.length){
   alert("กรุณาเลือกรูปสินค้า");
   return;
 }
