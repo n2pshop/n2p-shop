@@ -67,7 +67,16 @@
         <h3>รอชำระเงิน</h3>
         <div class="number" id="waitingOrders">0</div>
       </div>
-    </div>
+  <div class="box">
+  <h3>ต้นทุนของเดือน</h3>
+  <div class="number" id="totalCost">฿0</div>
+</div>
+
+<div class="box">
+  <h3>กำไรของเดือน</h3>
+  <div class="number" id="totalProfit">฿0</div>
+</div>
+      </div>
 
     <div class="orders">
       <h2 id="ordersTitle">ออเดอร์เดือนปัจจุบัน</h2>
@@ -228,16 +237,25 @@ function renderOrders(){
   document.getElementById("totalOrders").textContent = monthOrders.length;
 
   let sales = 0;
+let cost = 0;
+let profit = 0;
   let waiting = 0;
 
   monthOrders.forEach(order => {
     sales += Number(order.total || 0);
+    cost += Number(order.cost || 0);
     if(order.status === "รอชำระเงิน") waiting++;
   });
 
   document.getElementById("totalSales").textContent =
     "฿" + sales.toLocaleString("th-TH");
+profit = sales - cost;
 
+document.getElementById("totalCost").textContent =
+  "฿" + cost.toLocaleString("th-TH");
+
+document.getElementById("totalProfit").textContent =
+  "฿" + profit.toLocaleString("th-TH");
   document.getElementById("waitingOrders").textContent = waiting;
 
   if(!monthOrders.length){
