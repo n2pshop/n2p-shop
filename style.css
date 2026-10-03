@@ -183,3 +183,41 @@
     width:100%;
   }
 }
+.product-form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.product-form input{
+  margin:0;
+}
+
+.product-form .full{
+  grid-column:1 / -1;
+}
+
+.product-actions{
+  display:flex;
+  justify-content:flex-end;
+}
+
+.product-actions button{
+  width:auto;
+  margin:0;
+  padding:8px 18px;
+}
+
+@media(max-width:700px){
+  .product-form{
+    grid-template-columns:1fr;
+  }
+
+  .product-form .full{
+    grid-column:auto;
+  }
+
+  .product-actions button{
+    width:100%;
+  }
+}
