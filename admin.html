@@ -4,498 +4,302 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>N2P SHOP CONTROL</title>
-
   <style>
-    body{
-      margin:0;
-      font-family:Arial,sans-serif;
-      background:#09070d;
-      color:#fff;
-    }
-
-    .login{
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding:20px;
-    }
-
-    .login-box{
-      width:100%;
-      max-width:380px;
-      background:#15101c;
-      border:1px solid #563579;
-      border-radius:18px;
-      padding:30px;
-      box-sizing:border-box;
-    }
-
-    .login-box h1{
-      color:#c77dff;
-      margin-top:0;
-    }
-
-    input{
-      width:100%;
-      box-sizing:border-box;
-      padding:13px;
-      margin:8px 0;
-      border-radius:8px;
-      border:1px solid #563579;
-      background:#0d0912;
-      color:#fff;
-    }
-
-    button{
-      width:100%;
-      padding:13px;
-      margin-top:10px;
-      border:0;
-      border-radius:8px;
-      background:#8b3dff;
-      color:#fff;
-      font-weight:bold;
-      cursor:pointer;
-    }
-
-    #loginError{
-      color:#ff6b6b;
-      margin-top:12px;
-    }
-
-    header{
-      padding:25px;
-      background:#140d20;
-      border-bottom:1px solid #3b2058;
-    }
-
-    header h1{
-      margin:0;
-      color:#c77dff;
-    }
-
-    header p{
-      color:#aaa;
-    }
-
-    .container{
-      max-width:1100px;
-      margin:auto;
-      padding:25px;
-    }
-
-    .stats{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:15px;
-    }
-
-    .box{
-      background:#15101c;
-      border:1px solid #332044;
-      border-radius:14px;
-      padding:20px;
-    }
-
-    .box h3{
-      margin-top:0;
-      color:#aaa;
-    }
-
-    .number{
-      font-size:28px;
-      font-weight:bold;
-      color:#c77dff;
-    }
-
-    .orders{
-      margin-top:25px;
-    }
-
-    .order{
-      background:#15101c;
-      border:1px solid #332044;
-      border-radius:14px;
-      padding:20px;
-      margin-bottom:15px;
-    }
-
-    .order-head{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-    }
-
-    .status{
-      background:#5b3a00;
-      color:#ffd166;
-      padding:6px 10px;
-      border-radius:20px;
-      font-size:13px;
-    }
-
-    select{
-      background:#0d0912;
-      color:#fff;
-      border:1px solid #563579;
-      padding:8px;
-      border-radius:8px;
-    }
-#statusFilters{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin:15px 0;
-}
-
-#statusFilters button{
-  width:auto;
-  margin-top:0;
-  padding:8px 14px;
-  font-size:14px;
-}
-    .logout{
-      width:auto;
-      float:right;
-      margin-top:-45px;
-      padding:9px 15px;
-    }
-
-    @media(max-width:700px){
-      .stats{
-        grid-template-columns:1fr;
-      }
-    }
+    body{margin:0;font-family:Arial,sans-serif;background:#09070d;color:#fff}
+    .login{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
+    .login-box{width:100%;max-width:380px;background:#15101c;border:1px solid #563579;border-radius:18px;padding:30px;box-sizing:border-box}
+    .login-box h1{color:#c77dff;margin-top:0}
+    input{width:100%;box-sizing:border-box;padding:13px;margin:8px 0;border-radius:8px;border:1px solid #563579;background:#0d0912;color:#fff}
+    button{width:100%;padding:13px;margin-top:10px;border:0;border-radius:8px;background:#8b3dff;color:#fff;font-weight:bold;cursor:pointer}
+    #loginError{color:#ff6b6b;margin-top:12px}
+    header{padding:25px;background:#140d20;border-bottom:1px solid #3b2058}
+    header h1{margin:0;color:#c77dff}
+    header p{color:#aaa}
+    .container{max-width:1100px;margin:auto;padding:25px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+    .box{background:#15101c;border:1px solid #332044;border-radius:14px;padding:20px}
+    .box h3{margin-top:0;color:#aaa}
+    .number{font-size:28px;font-weight:bold;color:#c77dff}
+    .orders{margin-top:25px}
+    .order{background:#15101c;border:1px solid #332044;border-radius:14px;padding:20px;margin-bottom:15px}
+    .order-head{display:flex;justify-content:space-between;gap:10px}
+    .status{background:#5b3a00;color:#ffd166;padding:6px 10px;border-radius:20px;font-size:13px}
+    select{background:#0d0912;color:#fff;border:1px solid #563579;padding:8px;border-radius:8px}
+    #statusFilters,#monthControls{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}
+    #statusFilters button,#monthControls button{width:auto;margin-top:0;padding:8px 14px;font-size:14px}
+    .logout{width:auto;float:right;margin-top:-45px;padding:9px 15px}
+    .current-month{color:#c77dff;font-weight:bold}
+    #historySelect{display:none}
+    @media(max-width:700px){.stats{grid-template-columns:1fr}}
   </style>
 </head>
-
 <body>
 
-<!-- LOGIN -->
 <div id="loginPage" class="login">
-
   <div class="login-box">
-
     <h1>N2P SHOP</h1>
     <p>เข้าสู่ระบบหลังบ้าน</p>
-
-    <input
-      type="email"
-      id="email"
-      placeholder="อีเมล"
-    >
-
-    <input
-      type="password"
-      id="password"
-      placeholder="รหัสผ่าน"
-    >
-
-    <button onclick="login()">
-      เข้าสู่ระบบ
-    </button>
-
+    <input type="email" id="email" placeholder="อีเมล">
+    <input type="password" id="password" placeholder="รหัสผ่าน">
+    <button onclick="login()">เข้าสู่ระบบ</button>
     <div id="loginError"></div>
-
   </div>
-
 </div>
 
-
-<!-- ADMIN -->
 <div id="adminPage" style="display:none;">
+  <header>
+    <h1>N2P SHOP CONTROL</h1>
+    <p>หลังบ้านจัดการออเดอร์</p>
+    <button class="logout" onclick="logout()">ออกจากระบบ</button>
+  </header>
 
-<header>
-
-  <h1>N2P SHOP CONTROL</h1>
-
-  <p>หลังบ้านจัดการออเดอร์</p>
-
-  <button class="logout" onclick="logout()">
-    ออกจากระบบ
-  </button>
-
-</header>
-
-<div class="container">
-
-  <div class="stats">
-
-    <div class="box">
-      <h3>ออเดอร์ทั้งหมด</h3>
-      <div class="number" id="totalOrders">0</div>
+  <div class="container">
+    <div class="stats">
+      <div class="box">
+        <h3>ออเดอร์ของเดือน</h3>
+        <div class="number" id="totalOrders">0</div>
+      </div>
+      <div class="box">
+        <h3>ยอดขายของเดือน</h3>
+        <div class="number" id="totalSales">฿0</div>
+      </div>
+      <div class="box">
+        <h3>รอชำระเงิน</h3>
+        <div class="number" id="waitingOrders">0</div>
+      </div>
     </div>
 
-    <div class="box">
-      <h3>ยอดขายรวม</h3>
-      <div class="number" id="totalSales">฿0</div>
-    </div>
+    <div class="orders">
+      <h2 id="ordersTitle">ออเดอร์เดือนปัจจุบัน</h2>
+      <div id="monthControls">
+        <button id="currentMonthBtn" onclick="showCurrentMonth()">📅 เดือนปัจจุบัน</button>
+        <button id="historyBtn" onclick="showHistory()">🔎 ประวัติออเดอร์</button>
+        <select id="historySelect" onchange="selectHistoryMonth(this.value)"></select>
+      </div>
 
-    <div class="box">
-      <h3>รอชำระเงิน</h3>
-      <div class="number" id="waitingOrders">0</div>
-    </div>
+      <div id="statusFilters">
+        <button onclick="filterOrders('ทั้งหมด')">ทั้งหมด</button>
+        <button onclick="filterOrders('รอชำระเงิน')">รอชำระเงิน</button>
+        <button onclick="filterOrders('กำลังเตรียมสินค้า')">กำลังเตรียมสินค้า</button>
+        <button onclick="filterOrders('จัดส่งแล้ว')">จัดส่งแล้ว</button>
+        <button onclick="filterOrders('เสร็จสิ้น')">เสร็จสิ้น</button>
+      </div>
 
+      <div id="ordersList">กำลังโหลด...</div>
+    </div>
   </div>
-
-  <div class="orders">
-
-    <h2>ออเดอร์ล่าสุด</h2>
-<div id="statusFilters">
-  <button onclick="filterOrders('ทั้งหมด')">ทั้งหมด</button>
-  <button onclick="filterOrders('รอชำระเงิน')">รอชำระเงิน</button>
-  <button onclick="filterOrders('กำลังเตรียมสินค้า')">กำลังเตรียมสินค้า</button>
-  <button onclick="filterOrders('จัดส่งแล้ว')">จัดส่งแล้ว</button>
-  <button onclick="filterOrders('เสร็จสิ้น')">เสร็จสิ้น</button>
 </div>
-    <div id="ordersList">
-      กำลังโหลด...
-    </div>
-
-  </div>
-
-</div>
-
-</div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
+const SUPABASE_URL = "https://sdcuzllpkjwoyklylhuo.supabase.co";
+const SUPABASE_KEY = "sb_publishable_9MKq7DSsnKbtUDy6VDZ1Vw_WiC-DCkQ";
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const SUPABASE_URL =
-"https://sdcuzllpkjwoyklylhuo.supabase.co";
+let allOrders = [];
+let selectedMonthKey = "";
+let historyMode = false;
+let lastMonthKey = "";
 
-const SUPABASE_KEY =
-"sb_publishable_9MKq7DSsnKbtUDy6VDZ1Vw_WiC-DCkQ";
+function monthKey(date){
+  const d = new Date(date);
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0");
+}
 
-const supabaseClient =
-supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+function monthLabel(key){
+  const [year, month] = key.split("-").map(Number);
+  return new Intl.DateTimeFormat("th-TH", {
+    month:"long",
+    year:"numeric"
+  }).format(new Date(year, month-1, 1));
+}
 
+function currentMonthKey(){
+  return monthKey(new Date());
+}
 
 // LOGIN
-
 async function login(){
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-  const email =
-    document.getElementById("email").value;
-
-  const password =
-    document.getElementById("password").value;
-
-  const { data, error } =
-    await supabaseClient.auth.signInWithPassword({
-      email: email,
-      password: password
-    });
+  const { error } = await supabaseClient.auth.signInWithPassword({email,password});
 
   if(error){
-
-    document.getElementById("loginError").textContent =
-      "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
-
+    document.getElementById("loginError").textContent = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
     return;
   }
 
-  document.getElementById("loginPage").style.display =
-    "none";
-
-  document.getElementById("adminPage").style.display =
-    "block";
-
+  document.getElementById("loginPage").style.display = "none";
+  document.getElementById("adminPage").style.display = "block";
+  showCurrentMonth();
   loadOrders();
 }
-setInterval(loadOrders, 5000);
-
-// LOGOUT
 
 async function logout(){
-
   await supabaseClient.auth.signOut();
-
   location.reload();
-
 }
 
-
-// LOAD ORDERS
-
 async function loadOrders(){
-
-  const { data, error } =
-    await supabaseClient
-      .from("orders")
-      .select("*")
-      .order("created_at", {
-        ascending:false
-      });
+  const { data, error } = await supabaseClient
+    .from("orders")
+    .select("*")
+    .order("created_at", {ascending:false});
 
   if(error){
-
     console.error(error);
-
-    document.getElementById("ordersList").innerHTML =
-      "<p>ไม่สามารถโหลดออเดอร์ได้</p>";
-
+    document.getElementById("ordersList").innerHTML = "<p>ไม่สามารถโหลดออเดอร์ได้</p>";
     return;
   }
 
+  allOrders = data || [];
 
-  document.getElementById("totalOrders").textContent =
-    data.length;
+  // เมื่อขึ้นเดือนใหม่ จะกลับมาแสดงเดือนปัจจุบันให้อัตโนมัติ
+  const nowMonth = currentMonthKey();
+  if(!lastMonthKey) lastMonthKey = nowMonth;
 
+  if(nowMonth !== lastMonthKey){
+    lastMonthKey = nowMonth;
+    historyMode = false;
+    selectedMonthKey = nowMonth;
+  }
+
+  if(!selectedMonthKey) selectedMonthKey = nowMonth;
+
+  updateHistoryOptions();
+  renderOrders();
+}
+
+function updateHistoryOptions(){
+  const select = document.getElementById("historySelect");
+  const monthKeys = [...new Set(allOrders.map(o => monthKey(o.created_at)))];
+
+  const now = currentMonthKey();
+  if(!monthKeys.includes(now)) monthKeys.push(now);
+
+  monthKeys.sort((a,b) => b.localeCompare(a));
+
+  select.innerHTML = monthKeys.map(key =>
+    `<option value="${key}" ${key === selectedMonthKey ? "selected" : ""}>${monthLabel(key)}</option>`
+  ).join("");
+}
+
+function showCurrentMonth(){
+  historyMode = false;
+  selectedMonthKey = currentMonthKey();
+  lastMonthKey = selectedMonthKey;
+  document.getElementById("historySelect").style.display = "none";
+  document.getElementById("ordersTitle").innerHTML =
+    `ออเดอร์เดือนปัจจุบัน <span class="current-month">(${monthLabel(selectedMonthKey)})</span>`;
+  renderOrders();
+}
+
+function showHistory(){
+  historyMode = true;
+  updateHistoryOptions();
+  document.getElementById("historySelect").style.display = "block";
+
+  const select = document.getElementById("historySelect");
+  if(!select.value){
+    select.value = selectedMonthKey;
+  }
+  selectedMonthKey = select.value;
+
+  document.getElementById("ordersTitle").textContent =
+    `ประวัติออเดอร์ (${monthLabel(selectedMonthKey)})`;
+
+  renderOrders();
+}
+
+function selectHistoryMonth(key){
+  selectedMonthKey = key;
+  historyMode = true;
+  document.getElementById("ordersTitle").textContent =
+    `ประวัติออเดอร์ (${monthLabel(selectedMonthKey)})`;
+  renderOrders();
+}
+
+function renderOrders(){
+  const monthOrders = allOrders.filter(order =>
+    monthKey(order.created_at) === selectedMonthKey
+  );
+
+  document.getElementById("totalOrders").textContent = monthOrders.length;
 
   let sales = 0;
   let waiting = 0;
 
-
-  data.forEach(order => {
-
+  monthOrders.forEach(order => {
     sales += Number(order.total || 0);
-
-    if(order.status === "รอชำระเงิน"){
-      waiting++;
-    }
-
+    if(order.status === "รอชำระเงิน") waiting++;
   });
-
 
   document.getElementById("totalSales").textContent =
     "฿" + sales.toLocaleString("th-TH");
 
+  document.getElementById("waitingOrders").textContent = waiting;
 
-  document.getElementById("waitingOrders").textContent =
-    waiting;
-
-
-  if(!data.length){
-
+  if(!monthOrders.length){
     document.getElementById("ordersList").innerHTML =
-      "<p>ยังไม่มีออเดอร์</p>";
-
+      `<p>เดือนนี้ยังไม่มีออเดอร์</p>`;
     return;
   }
 
-
-  document.getElementById("ordersList").innerHTML =
-    data.map(order => `
-
-      <div class="order">
-
-        <div class="order-head">
-
-          <strong>
-            ${order.order_number}
-          </strong>
-
-          <span class="status">
-            ${order.status || "รอชำระเงิน"}
-          </span>
-
-        </div>
-
-        <p>👤 ${order.customer_name}</p>
-
-        <p>📞 ${order.customer_phone}</p>
-
-        <p>📦 ${order.items}</p>
-
-        <p>
-          💰 ฿${Number(order.total)
-            .toLocaleString("th-TH")}
-        </p>
-
-        <p>📍 ${order.address}</p>
-
-        <select
-          onchange="updateStatus(
-            '${order.id}',
-            this.value
-          )"
-        >
-
-          <option
-            ${order.status==="รอชำระเงิน"?"selected":""}
-          >
-            รอชำระเงิน
-          </option>
-
-          <option
-            ${order.status==="กำลังเตรียมสินค้า"?"selected":""}
-          >
-            กำลังเตรียมสินค้า
-          </option>
-
-          <option
-            ${order.status==="จัดส่งแล้ว"?"selected":""}
-          >
-            จัดส่งแล้ว
-          </option>
-
-          <option
-            ${order.status==="เสร็จสิ้น"?"selected":""}
-          >
-            เสร็จสิ้น
-          </option>
-</select>
-
-<button
-  onclick="deleteOrder('${order.id}')"
-  style="margin-top:10px;background:#8b1e1e;color:white;border:0;padding:8px 14px;border-radius:8px;cursor:pointer;"
->
-  🗑 ลบออเดอร์
-</button>
-
-
+  document.getElementById("ordersList").innerHTML = monthOrders.map(order => `
+    <div class="order">
+      <div class="order-head">
+        <strong>${order.order_number}</strong>
+        <span class="status">${order.status || "รอชำระเงิน"}</span>
       </div>
 
-    `).join("");
+      <p>🕒 ${new Date(order.created_at).toLocaleString("th-TH")}</p>
+      <p>👤 ${order.customer_name}</p>
+      <p>📞 ${order.customer_phone}</p>
+      <p>📦 ${order.items}</p>
+      <p>💰 ฿${Number(order.total).toLocaleString("th-TH")}</p>
+      <p>📍 ${order.address}</p>
 
+      <select onchange="updateStatus('${order.id}',this.value)">
+        <option ${order.status==="รอชำระเงิน"?"selected":""}>รอชำระเงิน</option>
+        <option ${order.status==="กำลังเตรียมสินค้า"?"selected":""}>กำลังเตรียมสินค้า</option>
+        <option ${order.status==="จัดส่งแล้ว"?"selected":""}>จัดส่งแล้ว</option>
+        <option ${order.status==="เสร็จสิ้น"?"selected":""}>เสร็จสิ้น</option>
+      </select>
+
+      <button
+        onclick="deleteOrder('${order.id}')"
+        style="margin-top:10px;background:#8b1e1e;color:white;border:0;padding:8px 14px;border-radius:8px;cursor:pointer;"
+      >
+        🗑 ลบออเดอร์
+      </button>
+    </div>
+  `).join("");
 }
 
 function filterOrders(status){
-  const orders = document.querySelectorAll(".order");
-
-  orders.forEach(order => {
-    const currentStatus =
-      order.querySelector(".status").textContent.trim();
-
-    if(status === "ทั้งหมด" || currentStatus === status){
-      order.style.display = "";
-    }else{
-      order.style.display = "none";
-    }
+  document.querySelectorAll(".order").forEach(order => {
+    const currentStatus = order.querySelector(".status").textContent.trim();
+    order.style.display =
+      (status === "ทั้งหมด" || currentStatus === status) ? "" : "none";
   });
 }
-// UPDATE STATUS
 
 async function updateStatus(id,status){
-  const { error } =
-    await supabaseClient
-      .from("orders")
-      .update({
-        status:status
-      })
-      .eq("id",id);
-
+  const { error } = await supabaseClient
+    .from("orders")
+    .update({status})
+    .eq("id",id);
 
   if(error){
-
     alert("เปลี่ยนสถานะไม่สำเร็จ");
-
     console.error(error);
-
     return;
   }
 
-
   loadOrders();
-
 }
+
 async function deleteOrder(id){
   if(!confirm("ยืนยันลบออเดอร์นี้?")) return;
 
@@ -513,7 +317,8 @@ async function deleteOrder(id){
   alert("ลบออเดอร์แล้ว");
   loadOrders();
 }
-</script>
 
+setInterval(loadOrders, 5000);
+</script>
 </body>
 </html>
