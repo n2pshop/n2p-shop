@@ -372,6 +372,8 @@ let totalCost = 0;
     "-" +
     Math.floor(1000 + Math.random() * 9000);
 
+  window.lastOrderNumber = orderNumber;
+  
   const { error } = await supabaseClient
     .from("orders")
     .insert([{
@@ -390,7 +392,9 @@ let totalCost = 0;
     alert("บันทึกออเดอร์ไม่สำเร็จ");
     return;
   }
-
+document.getElementById("paymentTotal").textContent = money(total);
+document.getElementById("paymentModal").classList.remove("hidden");
+document.getElementById("paymentModal").style.display = "flex";
 const resultBox = document.getElementById("trackResult");
 
 resultBox.innerHTML = `
@@ -535,6 +539,43 @@ document.getElementById("trackOrderBtn").onclick = async function(){
       <p style="color:#aaa;margin-bottom:0;">
         วันที่สั่งซื้อ:
         ${new Date(data.created_at).toLocaleString("th-TH")}
+      </p>
+    </div>
+  `;
+};
+document.getElementById("closePaymentModal").onclick = function(){
+  document.getElementById("paymentModal").style.display = "none";
+};
+
+document.getElementById("paymentDone").onclick = async function(){
+
+  const { error } = await supabaseClient
+    .from("orders")
+    .update({
+      status: "แจ้งชำระเงินแล้ว"
+    })
+    .eq("order_number", window.lastOrderNumber);
+
+  if(error){
+    console.error(error);
+    alert("แจ้งชำระเงินไม่สำเร็จ");
+    return;
+  }
+
+  document.getElementById("paymentModal").style.display = "none";
+
+  document.getElementById("trackResult").innerHTML = `
+    <div style="
+      margin-top:20px;
+      padding:20px;
+      border:1px solid #6d3ca5;
+      border-radius:15px;
+      background:#120d19;
+      text-align:center;
+    ">
+      <h3>✅ แจ้งชำระเงินแล้ว</h3>
+      <p style="color:#aaa;">
+        ร้านได้รับแจ้งการชำระเงินแล้ว
       </p>
     </div>
   `;
