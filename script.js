@@ -609,5 +609,3 @@ document.getElementById("paymentDone").onclick = async function(){
     </div>
   `;
 };
-  `;
-};
