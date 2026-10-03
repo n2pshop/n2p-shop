@@ -10,7 +10,7 @@ const products = [
     name: "เสื้อกันหนาวคอกลม",
     price: 399,
     cost: 250,
-   image: "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-cover.webp",
+   image: "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-cover.jpg",
     images: [
   "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-black.jpg",
   "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-gray.jpg",
