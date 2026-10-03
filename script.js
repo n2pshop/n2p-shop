@@ -394,4 +394,101 @@ document.getElementById("confirmOrder").onclick = async function(){
   document.getElementById("customerPhone").value = "";
   document.getElementById("customerAddress").value = "";
 };
+// ===== ติดตามคำสั่งซื้อ =====
+document.getElementById("trackOrderBtn").onclick = async function(){
 
+  const orderNumber = document
+    .getElementById("trackOrderNumber")
+    .value
+    .trim();
+
+  const phone = document
+    .getElementById("trackPhone")
+    .value
+    .trim();
+
+  const result = document.getElementById("trackResult");
+
+  if(!orderNumber || !phone){
+    result.innerHTML = `
+      <p style="color:#ff8a8a;margin-top:20px;">
+        กรุณากรอกเลขออเดอร์และเบอร์โทร
+      </p>
+    `;
+    return;
+  }
+
+  result.innerHTML = `
+    <p style="color:#aaa;margin-top:20px;">
+      กำลังค้นหาออเดอร์...
+    </p>
+  `;
+
+  const { data, error } = await supabaseClient
+    .from("orders")
+    .select("*")
+    .eq("order_number", orderNumber)
+    .eq("customer_phone", phone)
+    .maybeSingle();
+
+  if(error){
+    console.error(error);
+
+    result.innerHTML = `
+      <p style="color:#ff8a8a;margin-top:20px;">
+        เกิดข้อผิดพลาด กรุณาลองใหม่
+      </p>
+    `;
+    return;
+  }
+
+  if(!data){
+    result.innerHTML = `
+      <div style="margin-top:20px;padding:18px;border:1px solid #5a334f;border-radius:12px;">
+        <p style="color:#ff8a8a;margin:0;">
+          ไม่พบคำสั่งซื้อ
+        </p>
+        <p style="color:#aaa;margin:8px 0 0;">
+          กรุณาตรวจสอบเลขออเดอร์และเบอร์โทรอีกครั้ง
+        </p>
+      </div>
+    `;
+    return;
+  }
+
+  result.innerHTML = `
+    <div style="
+      margin-top:20px;
+      padding:20px;
+      border:1px solid #6d3ca5;
+      border-radius:15px;
+      background:#120d19;
+    ">
+      <h3 style="margin-top:0;">
+        📦 ${data.order_number}
+      </h3>
+
+      <p>
+        <strong>สถานะ:</strong>
+        <span style="color:#c14cff;">
+          ${data.status}
+        </span>
+      </p>
+
+      <p>
+        <strong>สินค้า:</strong><br>
+        ${data.items}
+      </p>
+
+      <p>
+        <strong>ยอดรวม:</strong>
+        ${money(data.total)}
+      </p>
+
+      <p style="color:#aaa;margin-bottom:0;">
+        วันที่สั่งซื้อ:
+        ${new Date(data.created_at).toLocaleString("th-TH")}
+      </p>
+    </div>
+  `;
+};
