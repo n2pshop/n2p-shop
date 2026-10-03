@@ -133,3 +133,9 @@
     margin:4px !important;
   }
 }
+.pic img{
+  width:85%;
+  height:85%;
+  object-fit:contain;
+  display:block;
+}
