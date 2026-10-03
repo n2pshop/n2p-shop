@@ -356,11 +356,13 @@ document.getElementById("confirmOrder").onclick = async function(){
     return;
   }
 
-  let total = 0;
+let total = 0;
+let totalCost = 0;
 
   const items = cart.map(x => {
     const p = products.find(p => p.id === x.id);
     total += p.price * x.qty;
+    totalCost += (p.cost || 0) * x.qty;
     return `${p.name} x${x.qty}`;
   }).join(", ");
 
@@ -379,6 +381,7 @@ document.getElementById("confirmOrder").onclick = async function(){
       address: address,
       items: items,
       total: total,
+      cost: totalCost,
       status: "รอชำระเงิน"
     }]);
 
