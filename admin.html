@@ -276,7 +276,16 @@ document.getElementById("totalProfit").textContent =
       <p>📞 ${order.customer_phone}</p>
       <p>📦 ${order.items}</p>
       <p>💰 ฿${Number(order.total).toLocaleString("th-TH")}</p>
-      <p>📍 ${order.address}</p>
+<p>📍 ${order.address}</p>
+
+${order.slip_url ? `
+  <a href="${order.slip_url}" target="_blank"
+     style="display:inline-block;margin-top:10px;padding:10px 15px;background:#8b3dff;color:white;border-radius:8px;text-decoration:none;font-weight:bold;">
+    🧾 ดูสลิปการโอนเงิน
+  </a>
+` : `
+  <p style="color:#888;">ยังไม่มีสลิป</p>
+`}
 
       <select onchange="updateStatus('${order.id}',this.value)">
         <option ${order.status==="รอชำระเงิน"?"selected":""}>รอชำระเงิน</option>
