@@ -382,7 +382,41 @@ document.getElementById("confirmOrder").onclick = async function(){
     return;
   }
 
-  alert("สั่งซื้อสำเร็จ! เลขออเดอร์ " + orderNumber);
+const resultBox = document.getElementById("trackResult");
+
+resultBox.innerHTML = `
+  <div style="
+    margin-top:20px;
+    padding:20px;
+    border:1px solid #6d3ca5;
+    border-radius:15px;
+    background:#120d19;
+    text-align:center;
+  ">
+    <h3>🎉 สั่งซื้อสำเร็จ</h3>
+    <p>เลขออเดอร์ของคุณคือ</p>
+
+    <div style="
+      font-size:24px;
+      font-weight:bold;
+      color:#c14cff;
+      margin:15px 0;
+    ">
+      ${orderNumber}
+    </div>
+
+    <p style="color:#aaa;">
+      กรุณาเก็บเลขออเดอร์นี้ไว้สำหรับติดตามสถานะ
+    </p>
+
+    <button
+      class="primary"
+      onclick="document.getElementById('trackOrder').scrollIntoView({behavior:'smooth'})"
+    >
+      📦 ติดตามออเดอร์
+    </button>
+  </div>
+`;
 
   cart = [];
   save();
