@@ -83,13 +83,31 @@
   <div class="box">
     <h3>➕ เพิ่มสินค้าใหม่</h3>
 
-    <input id="productName" placeholder="ชื่อสินค้า">
-    <input id="productPrice" type="number" placeholder="ราคาขาย">
-    <input id="productCost" type="number" placeholder="ต้นทุน">
-    <input id="productImage" placeholder="ลิงก์รูปสินค้า">
-    <input id="productDescription" placeholder="รายละเอียดสินค้า">
+<div class="product-form">
 
-    <button onclick="addProduct()">เพิ่มสินค้า</button>
+  <input id="productName" placeholder="ชื่อสินค้า">
+
+  <input id="productImage" placeholder="ลิงก์รูปสินค้า">
+
+  <input id="productPrice" type="number" placeholder="ราคาขาย">
+
+  <input id="productCost" type="number" placeholder="ต้นทุน">
+
+  <input id="productSizes" placeholder="ไซส์ เช่น S,M,L,XL">
+
+  <input id="productColors" placeholder="สี เช่น ดำ,ขาว,เทา">
+
+  <input
+    id="productDescription"
+    class="full"
+    placeholder="รายละเอียดสินค้า"
+  >
+
+  <div class="product-actions full">
+    <button onclick="addProduct()">➕ เพิ่มสินค้า</button>
+  </div>
+
+</div>
   </div>
 
   <div id="productsList" style="margin-top:20px;">
