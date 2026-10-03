@@ -424,6 +424,10 @@ resultBox.innerHTML = `
   closeOrderModal();
   closeCart();
 
+  document.getElementById("trackOrderNumber").value = orderNumber;
+document.getElementById("trackPhone").value = phone;
+document.getElementById("trackOrder").scrollIntoView({behavior:"smooth"});
+  
   document.getElementById("customerName").value = "";
   document.getElementById("customerPhone").value = "";
   document.getElementById("customerAddress").value = "";
