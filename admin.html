@@ -77,7 +77,25 @@
   <div class="number" id="totalProfit">฿0</div>
 </div>
       </div>
+<div class="products">
+  <h2>📦 จัดการสินค้า</h2>
 
+  <div class="box">
+    <h3>➕ เพิ่มสินค้าใหม่</h3>
+
+    <input id="productName" placeholder="ชื่อสินค้า">
+    <input id="productPrice" type="number" placeholder="ราคาขาย">
+    <input id="productCost" type="number" placeholder="ต้นทุน">
+    <input id="productImage" placeholder="ลิงก์รูปสินค้า">
+    <input id="productDescription" placeholder="รายละเอียดสินค้า">
+
+    <button onclick="addProduct()">เพิ่มสินค้า</button>
+  </div>
+
+  <div id="productsList" style="margin-top:20px;">
+    กำลังโหลดสินค้า...
+  </div>
+</div>
     <div class="orders">
       <h2 id="ordersTitle">ออเดอร์เดือนปัจจุบัน</h2>
       <div id="monthControls">
@@ -106,6 +124,7 @@ const SUPABASE_KEY = "sb_publishable_9MKq7DSsnKbtUDy6VDZ1Vw_WiC-DCkQ";
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let allOrders = [];
+  let allProducts = [];
 let selectedMonthKey = "";
 let historyMode = false;
 let lastMonthKey = "";
@@ -149,7 +168,145 @@ async function logout(){
   await supabaseClient.auth.signOut();
   location.reload();
 }
+async function loadProducts(){
+  const { data, error } = await supabaseClient
+    .from("products")
+    .select("*")
+    .order("created_at", { ascending:false });
 
+  if(error){
+    console.error(error);
+    document.getElementById("productsList").innerHTML =
+      "<p>ไม่สามารถโหลดสินค้าได้</p>";
+    return;
+  }
+
+  allProducts = data || [];
+  renderProducts();
+}
+
+function renderProducts(){
+
+  if(!allProducts.length){
+    document.getElementById("productsList").innerHTML =
+      "<p>ยังไม่มีสินค้า</p>";
+    return;
+  }
+
+  document.getElementById("productsList").innerHTML =
+    allProducts.map(product => `
+      <div class="order">
+
+        ${product.image_url ? `
+          <img
+            src="${product.image_url}"
+            style="width:120px;height:120px;object-fit:cover;border-radius:10px;"
+          >
+        ` : ""}
+
+        <h3>${product.name}</h3>
+
+        <p>💰 ราคาขาย: ฿${Number(product.price).toLocaleString("th-TH")}</p>
+        <p>💵 ต้นทุน: ฿${Number(product.cost).toLocaleString("th-TH")}</p>
+
+        <p>${product.description || ""}</p>
+
+        <p>
+          ${product.active ? "🟢 เปิดขาย" : "🔴 ปิดขาย"}
+        </p>
+
+        <button
+          onclick="toggleProduct('${product.id}', ${product.active})"
+        >
+          ${product.active ? "ปิดการขาย" : "เปิดการขาย"}
+        </button>
+
+        <button
+          onclick="deleteProduct('${product.id}')"
+          style="background:#8b1e1e;"
+        >
+          🗑 ลบสินค้า
+        </button>
+
+      </div>
+    `).join("");
+}
+
+async function addProduct(){
+
+  const name = document.getElementById("productName").value.trim();
+  const price = Number(document.getElementById("productPrice").value || 0);
+  const cost = Number(document.getElementById("productCost").value || 0);
+  const image_url = document.getElementById("productImage").value.trim();
+  const description =
+    document.getElementById("productDescription").value.trim();
+
+  if(!name){
+    alert("กรุณาใส่ชื่อสินค้า");
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("products")
+    .insert({
+      name,
+      price,
+      cost,
+      image_url,
+      description,
+      active:true
+    });
+
+  if(error){
+    console.error(error);
+    alert("เพิ่มสินค้าไม่สำเร็จ");
+    return;
+  }
+
+  document.getElementById("productName").value = "";
+  document.getElementById("productPrice").value = "";
+  document.getElementById("productCost").value = "";
+  document.getElementById("productImage").value = "";
+  document.getElementById("productDescription").value = "";
+
+  loadProducts();
+}
+
+async function toggleProduct(id, currentStatus){
+
+  const { error } = await supabaseClient
+    .from("products")
+    .update({
+      active: !currentStatus
+    })
+    .eq("id", id);
+
+  if(error){
+    console.error(error);
+    alert("เปลี่ยนสถานะสินค้าไม่สำเร็จ");
+    return;
+  }
+
+  loadProducts();
+}
+
+async function deleteProduct(id){
+
+  if(!confirm("ยืนยันลบสินค้านี้?")) return;
+
+  const { error } = await supabaseClient
+    .from("products")
+    .delete()
+    .eq("id", id);
+
+  if(error){
+    console.error(error);
+    alert("ลบสินค้าไม่สำเร็จ");
+    return;
+  }
+
+  loadProducts();
+}
 async function loadOrders(){
   const { data, error } = await supabaseClient
     .from("orders")
