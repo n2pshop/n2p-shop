@@ -4,83 +4,7 @@ const supabaseClient = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
-const products = [
-  {
-    id: 1,
-    name: "เสื้อกันหนาวคอกลม",
-    price: 399,
-    cost: 250,
-   image: "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-cover.jpg",
-    images: [
-  "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-black.jpg",
-  "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-gray.jpg",
-  "https://raw.githubusercontent.com/nannapatgod-svg/n2p-shop/main/sweater-white.jpg"
-],
-    description: "เสื้อกันหนาวคอกลม เนื้อผ้านุ่ม ใส่สบาย",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["ดำ", "ขาว", "เทา"]
-  },
-
-  {
-    id: 2,
-    name: "สินค้าใหม่ #02",
-    price: 790,
-    cost: 0,
-    icon: "◆",
-    images: [],
-    description: "รายละเอียดสินค้า",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["ดำ", "ขาว"]
-  },
-
-  {
-    id: 3,
-    name: "สินค้าใหม่ #03",
-    price: 990,
-    cost: 0,
-    icon: "★",
-    images: [],
-    description: "รายละเอียดสินค้า",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["ดำ", "ขาว"]
-  },
-
-  {
-    id: 4,
-    name: "สินค้าใหม่ #04",
-    price: 450,
-     cost: 0,
-    icon: "◈",
-    images: [],
-    description: "รายละเอียดสินค้า",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["ดำ", "ขาว"]
-  },
-
-  {
-    id: 5,
-    name: "สินค้าใหม่ #05",
-    price: 690,
-     cost: 0,
-    icon: "✧",
-    images: [],
-    description: "รายละเอียดสินค้า",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["ดำ", "ขาว"]
-  },
-
-  {
-    id: 6,
-    name: "สินค้าใหม่ #06",
-    price: 1290,
-     cost: 0,
-    icon: "⬢",
-    images: [],
-    description: "รายละเอียดสินค้า",
-    sizes: ["S", "M", "L", "XL"],
-    colors: ["ดำ", "ขาว"]
-  }
-];
+let products = [];
 let cart = [];async function loadProductsFromSupabase(){
   const { data, error } = await supabaseClient
     .from("products")
@@ -138,8 +62,8 @@ function renderProducts(){
   <h3>${p.name}</h3>
   <div class="price">${money(p.price)}</div>
 
-  <button class="add" onclick="openProduct(${p.id})">
-    ดูรายละเอียด
+<button class="add" onclick="openProduct('${p.id}')">
+ดูรายละเอียด
   </button>
 </div>
       </div>
