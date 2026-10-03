@@ -139,3 +139,47 @@
   object-fit:contain;
   display:block;
 }
+.product-form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.product-form input{
+  margin:0;
+}
+
+.product-form .full{
+  grid-column:1 / -1;
+}
+
+.product-actions{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:10px;
+}
+
+.product-actions button{
+  width:auto;
+  margin:0;
+  padding:10px 25px;
+}
+
+@media(max-width:700px){
+  .product-form{
+    grid-template-columns:1fr;
+  }
+
+  .product-form .full{
+    grid-column:auto;
+  }
+
+  .product-actions{
+    justify-content:stretch;
+  }
+
+  .product-actions button{
+    width:100%;
+  }
+}
