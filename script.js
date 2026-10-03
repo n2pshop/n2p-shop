@@ -552,7 +552,7 @@ document.getElementById("paymentDone").onclick = async function(){
   const { error } = await supabaseClient
     .from("orders")
     .update({
-      status: "แจ้งชำระเงินแล้ว"
+      status: "รอตรวจสอบการชำระเงิน"
     })
     .eq("order_number", window.lastOrderNumber);
 
