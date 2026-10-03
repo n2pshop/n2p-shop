@@ -259,6 +259,17 @@ async function addProduct(){
   const image_url = document.getElementById("productImage").value.trim();
   const description =
     document.getElementById("productDescription").value.trim();
+  const sizes =
+  document.getElementById("productSizes").value
+    .split(",")
+    .map(x => x.trim())
+    .filter(Boolean);
+
+const colors =
+  document.getElementById("productColors").value
+    .split(",")
+    .map(x => x.trim())
+    .filter(Boolean);
 
   if(!name){
     alert("กรุณาใส่ชื่อสินค้า");
@@ -272,8 +283,10 @@ async function addProduct(){
       price,
       cost,
       image_url,
-      description,
-      active:true
+    description,
+    sizes,
+    colors,
+    active:true
     });
 
   if(error){
